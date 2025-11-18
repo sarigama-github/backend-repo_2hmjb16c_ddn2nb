@@ -1,48 +1,41 @@
 """
-Database Schemas
+Database Schemas for Real Estate Voice Agent
 
-Define your MongoDB collection schemas here using Pydantic models.
-These schemas are used for data validation in your application.
-
-Each Pydantic model represents a collection in your database.
-Model name is converted to lowercase for the collection name:
-- User -> "user" collection
-- Product -> "product" collection
-- BlogPost -> "blogs" collection
+Each Pydantic model represents a MongoDB collection (collection name is the lowercase class name).
 """
 
-from pydantic import BaseModel, Field
-from typing import Optional
+from pydantic import BaseModel, Field, EmailStr
+from typing import Optional, List, Literal
+from datetime import datetime
 
-# Example schemas (replace with your own):
+class Lead(BaseModel):
+    full_name: str = Field(..., description="Lead full name")
+    email: Optional[EmailStr] = Field(None, description="Email address")
+    phone: str = Field(..., description="E.164 formatted phone number")
+    country: str = Field("USA", description="Country of residence")
+    state: Optional[str] = Field(None, description="US state if applicable")
+    nri: bool = Field(True, description="Is Non-Resident Indian")
+    source: Optional[str] = Field(None, description="Lead source, e.g., csv, referral")
+    interest_level: Optional[Literal["low", "medium", "high"]] = Field(None, description="Self-reported interest level")
+    status: Literal["new", "queued", "calling", "no_answer", "not_interested", "callback_requested", "interested", "meeting_scheduled", "converted"] = Field("new")
+    notes: Optional[str] = None
 
-class User(BaseModel):
-    """
-    Users collection schema
-    Collection name: "user" (lowercase of class name)
-    """
-    name: str = Field(..., description="Full name")
-    email: str = Field(..., description="Email address")
-    address: str = Field(..., description="Address")
-    age: Optional[int] = Field(None, ge=0, le=120, description="Age in years")
-    is_active: bool = Field(True, description="Whether user is active")
+class Script(BaseModel):
+    title: str = Field(..., description="Script title")
+    content: str = Field(..., description="Call script content")
+    language: str = Field("en-US", description="Voice language/locale")
 
-class Product(BaseModel):
-    """
-    Products collection schema
-    Collection name: "product" (lowercase of class name)
-    """
-    title: str = Field(..., description="Product title")
-    description: Optional[str] = Field(None, description="Product description")
-    price: float = Field(..., ge=0, description="Price in dollars")
-    category: str = Field(..., description="Product category")
-    in_stock: bool = Field(True, description="Whether product is in stock")
+class Campaign(BaseModel):
+    name: str
+    script_id: Optional[str] = Field(None, description="Reference to script document _id")
+    target_states: Optional[List[str]] = Field(None, description="Filter by US states")
+    nri_only: bool = Field(True)
+    status: Literal["draft", "running", "paused", "completed"] = Field("draft")
 
-# Add your own schemas here:
-# --------------------------------------------------
-
-# Note: The Flames database viewer will automatically:
-# 1. Read these schemas from GET /schema endpoint
-# 2. Use them for document validation when creating/editing
-# 3. Handle all database operations (CRUD) directly
-# 4. You don't need to create any database endpoints!
+class Meeting(BaseModel):
+    lead_id: str
+    senior_name: str
+    meeting_time: datetime
+    meeting_channel: Literal["zoom", "google_meet", "phone", "in_person"] = "zoom"
+    location: Optional[str] = Field(None, description="Location if in_person")
+    notes: Optional[str] = None
