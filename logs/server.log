@@ -1,19 +1,13 @@
 INFO:     Will watch for changes in these directories: ['/home/workspace']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [229] using StatReload
-INFO:     Started server process [231]
+INFO:     Started reloader process [125] using StatReload
+INFO:     Started server process [127]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     172.20.0.1:55546 - "HEAD / HTTP/1.1" 405 Method Not Allowed
-INFO:     172.20.0.1:55562 - "GET /api/leads HTTP/1.1" 200 OK
-INFO:     172.20.0.1:55570 - "GET /api/scripts HTTP/1.1" 200 OK
-INFO:     172.20.0.1:55562 - "GET /api/leads HTTP/1.1" 200 OK
-INFO:     172.20.0.1:55570 - "GET /api/scripts HTTP/1.1" 200 OK
-INFO:     172.20.0.1:55576 - "GET /api/campaigns HTTP/1.1" 200 OK
-INFO:     172.20.0.1:55576 - "GET /api/campaigns HTTP/1.1" 200 OK
-INFO:     172.20.0.1:55592 - "GET /api/leads HTTP/1.1" 200 OK
-INFO:     172.20.0.1:55592 - "GET /api/scripts HTTP/1.1" 200 OK
-INFO:     172.20.0.1:46058 - "GET /api/leads HTTP/1.1" 200 OK
-INFO:     172.20.0.1:46042 - "GET /api/campaigns HTTP/1.1" 200 OK
-INFO:     172.20.0.1:55592 - "GET /api/scripts HTTP/1.1" 200 OK
-INFO:     172.20.0.1:46042 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     172.20.0.1:40916 - "HEAD / HTTP/1.1" 405 Method Not Allowed
+INFO:     172.20.0.1:59640 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     172.20.0.1:59654 - "GET /api/leads HTTP/1.1" 200 OK
+INFO:     172.20.0.1:59640 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     172.20.0.1:59654 - "GET /api/leads HTTP/1.1" 200 OK
+INFO:     172.20.0.1:59656 - "GET /api/scripts HTTP/1.1" 200 OK
+INFO:     172.20.0.1:59656 - "GET /api/scripts HTTP/1.1" 200 OK
